@@ -5,10 +5,17 @@ class Mempool {
         this.timeoutrequests = [];
         this.mempoolWindow = 5*60*1000;
         this.mempoolValidWindow = 30*60*1000;
-        console.log(`Mempool initiated...`);
+        console.log(`Mempool() initiated`);
 
     }
 
+    print(params) {
+        return new Promise( resolve =>  setTimeout(() => {
+            resolve(console.log(params.msg));
+        }, 2000));
+    }
+
+    //DONE
     getMempoolEntry(params) {
         const self = this;
         return new Promise((resolve, reject) => {
@@ -25,7 +32,7 @@ class Mempool {
             //1. Setup some variables.
             const   {address : walletAddress} = params,
                     requestTimeStamp = new Date().getTime().toString().slice(0,-3),
-                    message = `${}:${}:starRegistry`,
+                    message = `${walletAddress}:${requestTimeStamp}:starRegistry`,
                     validationWindow = self.mempoolWindow;
 
             //2. Create the object.
@@ -40,7 +47,12 @@ class Mempool {
             self.mempool.push(entry);
 
             //4. Create a timeout.
-            self.timeoutRequests[walletAddress] = setTimeout(() => deleteFromMempool({walletAddress}), self.mempoolWindow);
+            self.timeoutrequests[walletAddress] = setTimeout(() => self.deleteFromMempool({walletAddress}), self.mempoolWindow);
+
+            //5. Get the entry from the mempool adn return it.
+            self.getMempoolEntry({walletAddress})
+                .then(entry => resolve(entry))
+                .catch(err => reject(err));
         });
     }
 
@@ -67,5 +79,6 @@ class Mempool {
         });
     }
 }
+
 
 module.export = new Mempool();
