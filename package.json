@@ -13,5 +13,8 @@
     "express": "4.16.4",
     "hex2ascii": "0.0.3",
     "level": "4.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
   }
 }
