@@ -2,13 +2,13 @@ class Controller {
     constructor (params) {
         this.app = params.app;
         console.log('Controller.js connected');
-        // Expose the home endpoint to the app.
-        this.home();
+        // Expose endpoints to the app.
+        this.requestValidation();
     }
 
-    home() {
-        this.app.get('/', (req, res) => {
-            res.send('Home connected').end();
+    requestValidation() {
+        this.app.post('/requestValidation', (req, res) => {
+            res.send('/requestValidation connected').end();
         });
     }
 }
