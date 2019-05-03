@@ -103,8 +103,8 @@ class Mempool {
     async bitcoinMessageVerify(params) {
         console.log(`Mempool.js bitcoinMessageVerify() code block running...`);
         const {walletAddress, signature, entry} = params;
-        // const isValid = bitcoinMessage.verify(entry.message, walletAddress, signature);
-        const isValid = true; // for dev purposes.
+        const isValid = bitcoinMessage.verify(entry.message, walletAddress, signature);
+        // const isValid = true; // for dev purposes.
         if(isValid === true) return Promise.resolve({registerStar: true, status: {...entry, messageSignature: true} });
         if(isValid === false) return Promise.reject({err: `signature did not pass validation checks.`});
     }
