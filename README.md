@@ -13,7 +13,7 @@ I have built the API on top of the popular NodeJS minimal framework [ExpressJS](
 3. From terminal or command-prompt (remaining in the same directory as above) type: `node app.js`
 
 
-#### Submit your wallet address to the API
+## Submit your wallet address to the API
 To use this API you'll first need to register and validate your wallet address.
 * Make a `POST` request to: `http://localhost:8000/requestValidation`
 The request should contain: 
@@ -40,7 +40,7 @@ You will recieve a response similar to this:
 ```
 You should then send use your preferred wallet or method to sign a message (e.g. [Electrum](https://electrum.org/))
 
-#### Submit a wallet signature to the API for verification
+## Submit a wallet signature to the API for verification
 You are required to send a signed message to the API to validate that you are the owner of the wallet address.
 * Make a `POST` request to: `http://localhost:8000/message-signature/validate`
 The request should contain: 
@@ -76,7 +76,7 @@ You will receive a response similar to this:
 Upon validation your wallet address will be whitelisted and gain access to register a single star.
 
 
-#### Submit a star
+## Submit a star
 The entire point of this API is to be able to register a star on the notary service!
 * Make a `POST` request to: `http://localhost:8000/block`
 The request should contain: 
@@ -122,8 +122,7 @@ The API will verify that your wallet address has been verified and whitelisted -
 }
 ```
 
-## Star Lookup
-#### Get block by hash
+## Get block by hash
 * Make a `GET` request to: `http://localhost:8000/stars/hash:[HASH]`
 The response should look similar to this: 
 ```
@@ -144,7 +143,7 @@ The response should look similar to this:
 }
 ```
 
-#### Get block by wallet address
+## Get block by wallet address
 * Make a `GET` request to: `http://localhost:8000/stars/address:[ADDRESS]`
 The response should look similar to this: 
 ```
@@ -182,20 +181,20 @@ The response should look similar to this:
 ]
 ```
 
-#### Get a block from the database
+## Get a block from the database
 * Make a `GET` request from a web browser or via a utility of your choice such as [Curl](https://curl.haxx.se/) or [PostMan](https://www.getpostman.com/).
 The request endpoint follows the structure: `localhost:8000/block/[block-index]`
 * Example `GET` request that will return the block at index 0 using curl:  `curl localhost:8000/block/0`
 
 
-#### Insert a new Block to the database
+## Insert a new Block to the database
 
 * Make a `POST` request with a single key value pair (the key must be named "body")
 * Example `POST` request using curl: `curl -d "body=mock%20data" -X POST http://localhost:8000/block`
 
 <br/>
 
-#### Errors 
+## Errors 
 
 * If you send a `POST` request without the correct body data (key = body), then you will receive an error message and your new block will NOT be created.
 
