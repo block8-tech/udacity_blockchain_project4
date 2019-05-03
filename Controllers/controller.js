@@ -129,8 +129,17 @@ class Controller {
     }
 
     height() {
-        this.app.get('/height', async (req,res) => {
-            res.send( {height: await this.db.getBlockHeight()} ).end()
+        this.app.get('/block/:height', async (req,res) => {
+            const {height} = req.params;
+            const result = await this.db.getBlock(height)
+                .then(block => res.send( block ).end())
+                .catch(async err => {
+                    const chainHeight = await this.db.getBlockHeight();
+                    const errMsg = {
+                        err: `blockchain height is only ${chainHeight} blocks in height. you can search for a maximum height of ${chainHeight - 1}.`
+                    };
+                    res.send(errMsg).end();
+                });
         });
     }
 
